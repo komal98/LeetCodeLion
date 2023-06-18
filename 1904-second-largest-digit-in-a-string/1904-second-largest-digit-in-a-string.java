@@ -1,24 +1,16 @@
 class Solution {
     public int secondHighest(String s) {
-        int max = -1;
-        int secondMax = -1;
+       TreeSet<Integer> set = new TreeSet<>();
 
         for(int i = 0; i < s.length(); i++){
             if(Character.isDigit(s.charAt(i))){
-                if(Character.getNumericValue(s.charAt(i))>max){
-                    secondMax = max;
-                    max = Character.getNumericValue(s.charAt(i));
-                }
-                else if(Character.getNumericValue(s.charAt(i))>secondMax && 
-                Character.getNumericValue(s.charAt(i))!=max){
-                    secondMax = Character.getNumericValue(s.charAt(i));
-                }
+                set.add(Character.getNumericValue(s.charAt(i)));  
             }
         }
-        if(secondMax == max){
+        if(set.size()== 0 || set.size() == 1){
             return -1;
         }
-        return secondMax;
-        
+        set.pollLast();
+        return set.last();
     }
 }
