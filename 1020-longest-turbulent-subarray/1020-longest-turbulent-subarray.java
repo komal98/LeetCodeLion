@@ -6,7 +6,7 @@ class Solution {
         if(i == arr.length) return 1;
         int maxTurb = 2;
         int turb = maxTurb;
-        for(; i < arr.length - 1; i++) {
+        for(i = 1; i < arr.length - 1; i++) {
             int prev = i - 1;
             int current = i;
             int next = i + 1;
