@@ -1,19 +1,25 @@
 class Solution {
-    public int maxTurbulenceSize(int[] A) {
-        int N = A.length;
-        int ans = 1;
-        int anchor = 0;
-
-        for (int i = 1; i < N; ++i) {
-            int c = Integer.compare(A[i-1], A[i]);
-            if (c == 0) {
-                anchor = i;
-            } else if (i == N-1 || c * Integer.compare(A[i], A[i+1]) != -1) {
-                ans = Math.max(ans, i - anchor + 1);
-                anchor = i;
+    public int maxTurbulenceSize(int[] arr) {
+        if(arr.length == 1) return 1;
+        int i = 1;
+        while(i < arr.length && arr[i - 1] == arr[i]) i++;
+        if(i == arr.length) return 1;
+        int maxTurb = 2;
+        int turb = maxTurb;
+        for(; i < arr.length - 1; i++) {
+            int prev = i - 1;
+            int current = i;
+            int next = i + 1;
+            if((arr[prev] < arr[current] && arr[current] > arr[next])
+            || (arr[prev] > arr[current] && arr[current] < arr[next])) {
+                turb++;
+                if(turb > maxTurb) {
+                    maxTurb = turb;
+                }
+            } else {
+                turb = 2;
             }
         }
-
-        return ans;
+        return maxTurb;
     }
 }
