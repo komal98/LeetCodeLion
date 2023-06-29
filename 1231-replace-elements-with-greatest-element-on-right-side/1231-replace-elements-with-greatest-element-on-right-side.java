@@ -1,14 +1,9 @@
 class Solution {
     public int[] replaceElements(int[] arr) {
-        int[] ans = new int[arr.length];
-
-        for(int i = 0; i< arr.length; i++){
-            int max = -1;
-            for (int j = i+1; j<arr.length; j++){
-                max = Math.max(max, arr[j]);
-            }
-            ans[i] = max;
-        }
-        return ans;
+       //traverse from right to left, keep track of max
+       for(int i = arr.length -1, max = -1; i>=0; --i){
+           max = Math.max(arr[i], arr[i] = max);
+       }
+       return arr;
     }
 }
