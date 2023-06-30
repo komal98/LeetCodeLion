@@ -1,7 +1,13 @@
 class Solution {
     public int lengthOfLastWord(String s) {
-      String words[] = s.split(" ");
-      int size = words.length-1;  
-      return words[size].length();
+      s = s.trim(); //removes leading or ending spaces
+      int count = 0;
+      for(int i = s.length()-1; i>=0; i--){
+        if(s.charAt(i) == ' '){
+          break;
+        }
+        count++;
+      }
+      return count;
     }
 }
