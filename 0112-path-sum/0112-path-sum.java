@@ -20,11 +20,8 @@ class Solution {
         }
 
         //base case
-        if(root.left == null && root.right == null){
-            if(targetSum - root.val == 0){
-                return true;
-            }
-            return false;
+        if(root.left == null && root.right == null && targetSum - root.val == 0){
+            return true;
         }
 
         return hasPathSum(root.left, targetSum - root.val) || hasPathSum(root.right, targetSum - root.val);
