@@ -1,26 +1,32 @@
 class Solution {
     public int maxVowels(String s, int k) {
-    Set<Character> vowvels = new HashSet<>();
-    vowvels.add('a');
-    vowvels.add('e');
-    vowvels.add('i');
-    vowvels.add('o');
-    vowvels.add('u');
-    int maxCount = 0, currCount = 0;
-    for(int i = 0; i < k; i++){
-        if(vowvels.contains(s.charAt(i))) currCount++;
+        int length = s.length();
+        if(length<k) return 0;
+        int count = 0;
+        
+        for(int i=0;i<k;i++){
+            if(isVowel(s.charAt(i))) count++;    
+        }
+
+        int max = count;
+
+        int end = k-1;
+        int start = 0;
+        
+        while(end<length-1){
+            if(isVowel(s.charAt(start)) && count>0) count--;
+            if(isVowel(s.charAt(end+1))) count++;
+            start++;
+            end++;
+            max = Math.max(count,max);
+        }
+
+        return max;
+
     }
 
-    maxCount = currCount;
 
-    for(int i = k; i < s.length(); i++){
-        if(vowvels.contains(s.charAt(i-k))) currCount--;
-        if(vowvels.contains(s.charAt(i))) currCount++;
-        maxCount = Math.max(maxCount, currCount);
-    }
-     return maxCount;
+    public boolean isVowel(Character c){
+        return (c=='a' || c=='e' || c=='i' || c=='o' || c=='u');
     }
 }
-
-//extract all substrings of length k
-//check how many vowvels are in them
