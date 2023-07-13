@@ -1,6 +1,7 @@
 class Solution {
   public int numSubseq(int[] nums, int target) {
     var n = nums.length;
+    //sort so that easier to track smallest and largest
     Arrays.sort(nums);
 
     var exp = new int[n];
@@ -22,3 +23,9 @@ class Solution {
     return cnt;
   }
 }
+
+/*
+[3,5,6,7]
+[0,1,2,3,4,5]
+[1,2,4,8,16,32]
+*/
