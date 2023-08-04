@@ -1,18 +1,13 @@
 class Solution {
     public int maxProfit(int[] prices) {
         
-        int largestDifference = 0;
-        int minSoFar = Integer.MAX_VALUE;
+        int min = prices[0], maxProfit = 0;
 
-        for(int i = 0; i< prices.length; i++ ){
-            if(prices[i] < minSoFar){
-                minSoFar = prices[i];
-            }
-            else{
-                largestDifference = Math.max(largestDifference, prices[i]-minSoFar);
-            }
+        for(int day = 1; day < prices.length; day++){
+            int profitDay = prices[day] - min;
+            maxProfit = Math.max(maxProfit, profitDay);
+            min = Math.min(min, prices[day]);
         }
-
-        return largestDifference;
+        return maxProfit;
     }
 }
