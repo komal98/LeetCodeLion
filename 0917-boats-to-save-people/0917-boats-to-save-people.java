@@ -33,12 +33,13 @@ each boat carries at most two people at the same time <= limit
 
 OUTPUT: Minimum number of boats to carry every given person
 
-Dynamic Programming
+Two Pointer
 
 [3,2,2,1] 
 sort
 [1,2,2,3]
-1 <= limit [1]
-1+2 <= limit [1,1]
+1+3> limit boats = 1
+1+2<= limit boats = 2
+2
 
 */
