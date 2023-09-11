@@ -27,3 +27,4 @@ class Solution {
         return isValidBST(root.left, root.val, min) && isValidBST(root.right, max, root.val);
     }
 }
+
