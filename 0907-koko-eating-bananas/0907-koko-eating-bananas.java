@@ -14,9 +14,9 @@ class Solution {
            }
 
            if(hourSpent<=h){
-               right = middle;
+               right = middle ;
            }else{
-               left = middle+1;
+               left = middle+1  ;
            }
        }
        return right;
