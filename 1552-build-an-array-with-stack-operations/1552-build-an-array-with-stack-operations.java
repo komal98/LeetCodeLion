@@ -1,33 +1,20 @@
 class Solution {
     public List<String> buildArray(int[] target, int n) {
-        List<String> ops = new ArrayList<>();
-        List<Integer> track = new ArrayList<>();
+        List<String> ans = new ArrayList();
+        int i = 0;
         
-        int l = target[target.length-1];
-        Set<Integer> set = new HashSet<>();
-        for(int i = 0; i<target.length; i++){
-            set.add(target[i]);
-        }
-        for(int i = 1; i<=l; i++){
-            if(set.contains(i)){
-                track.add(i);
-            }else{
-                track.add(0);
+        for (int num : target) {
+            while (i < num - 1) {
+                ans.add("Push");
+                ans.add("Pop");
+                i++;
             }
+            
+            ans.add("Push");
+            i++;
         }
-
-        for(int i =0; i<track.size(); i++){
-            if(track.get(i)!=0){
-                ops.add("Push");
-            }
-            else{
-                ops.add("Push");
-                ops.add("Pop");
-            }
-        }
-
-        return ops;
         
+        return ans;
     }
 }
 /*
