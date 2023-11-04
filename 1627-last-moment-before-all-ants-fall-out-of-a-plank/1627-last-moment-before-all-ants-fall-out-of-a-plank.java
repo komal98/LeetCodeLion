@@ -1,12 +1,19 @@
+
 class Solution {
     public int getLastMoment(int n, int[] left, int[] right) {
-        // Find the farthest position among ants moving to the left.
-        int maxLeft = Arrays.stream(left).max().orElse(0);
+        int lastFallTime = 0;
         
-        // Find the nearest position among ants moving to the right.
-        int minRight = n - Arrays.stream(right).min().orElse(n);
+        // Determine the farthest position reached by ants moving to the left.
+        for (int leftPosition : left) {
+            lastFallTime = Math.max(lastFallTime, leftPosition);
+        }
         
-        // Calculate the time when the last ant(s) fall.
-        return Math.max(maxLeft, minRight);
+        // Determine the farthest position reached by ants moving to the right,
+        // considering they start from the right end of the plank (n - position).
+        for (int rightPosition : right) {
+            lastFallTime = Math.max(lastFallTime, n - rightPosition);
+        }
+        
+        return lastFallTime;
     }
 }
