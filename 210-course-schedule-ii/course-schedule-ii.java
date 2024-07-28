@@ -7,7 +7,7 @@ class Solution {
             adj.add(new ArrayList<>());
         }
 
-        for(int i =0; i<pre.length; i++){
+        for(int i = 0; i<pre.length; i++){
             adj.get(pre[i][1]).add(pre[i][0]);
             indegree[pre[i][0]]++;
         }
