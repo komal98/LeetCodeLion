@@ -1,45 +1,32 @@
 class Solution {
     public int search(int[] nums, int target) {
-        if(nums==null || nums.length == 0){
-            return -1;
-        }
-        //find pivot
-        int left = 0;
-        int right = nums.length - 1;
+            int l = 0;
+            int r = nums.length - 1;
 
-        while(left < right){
-            int midpoint = left + (right-left)/2;
-            if(nums[midpoint] > nums[right]){
-                left = midpoint + 1;
-            }else{
-                right = midpoint;
+            while(l<=r){
+                int mid = (l+r)/2;
+
+                if(nums[mid] == target){
+                    return mid;
+                }
+
+                else if(nums[l]<=nums[mid]){
+                    if(nums[l]<= target  && target <= nums[mid]){
+                        r = mid-1;
+                    }else{
+                        l = mid +1;
+                    }
+                }
+
+                else{
+                    if(nums[mid]<=target && target <=nums[r]){
+                        l = mid +1;
+                    }else{
+                        r = mid -1;
+                    }
+                }
             }
-        }
-//left is our pivot
-int start = left;
-left = 0;
-right = nums.length - 1;
-
-//now we have to check if the target is on the left side of pivot or right
-if(target >= nums[start] && target <=nums[right]){
-    left = start;
-}else{
-    right = start;
+            return -1;
+    }
 }
 
-//performing simple binary search now
-while(left<=right){
-    int midpoint = left + (right -left)/2;
-    if(nums[midpoint] == target){
-        return midpoint;
-    }
-    else if(nums[midpoint] < target){
-        left = midpoint + 1;
-    }else{
-        right = midpoint - 1;
- 
-    }
-}
-return -1;
-    }
-}
