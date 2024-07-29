@@ -3,7 +3,7 @@ class Solution {
         int[] indegree = new int[numCourses];
         List<List<Integer>> adj = new ArrayList<>();
 
-        for(int i =0; i<numCourses; i++){
+        for(int i = 0; i<numCourses; i++){
             adj.add(new ArrayList<>());
         }
 
@@ -15,14 +15,14 @@ class Solution {
         Queue<Integer> queue = new LinkedList<>();
 
         for(int i =0; i<numCourses; i++){
-            if(indegree[i]==0){
+            if(indegree[i] == 0){
                 queue.offer(i);
             }
         }
 
-        List<Integer> ans = new ArrayList<>();
-        
         int nodesVisited = 0;
+        List<Integer> ans = new ArrayList<>();
+
         while(!queue.isEmpty()){
             int node = queue.poll();
             nodesVisited++;
@@ -38,7 +38,7 @@ class Solution {
         }
 
         if(nodesVisited == numCourses){
-            return ans.stream().mapToInt(Integer::intValue).toArray();
+             return ans.stream().mapToInt(Integer::intValue).toArray();
         }
 
         return new int[0];
