@@ -1,77 +1,69 @@
-class Node {
-    public int key;
-    public int val;
-    public Node next;
-    public Node prev;
-
-    public Node(int key, int val) {
-        this.key = key;
-        this.val = val;
-        next = null;
-        prev = null;
-    }
-}
-
 class LRUCache {
-    Map<Integer, Node> lru;
-    private Node head;
-    private Node tail;
-    private int capacity;
+    final Node head = new Node();
+    final Node tail = new Node();
+    Map<Integer,Node> nodeMap;
+    int cacheCapacity;
 
     public LRUCache(int capacity) {
-       
-       this.capacity = capacity;
-       lru = new HashMap<>();
-       head = new Node(-1,-1);
-       tail = new Node(-1,1);
-       head.next = tail;
-       tail.prev = head;
-    }
-
-    private void deleteNode(Node node){
-        Node prev = node.prev;
-        Node next = node.next;
-        prev.next = next;
-        next.prev = prev;
-    }
-
-    private void addNode(Node newNode){
-        Node temp = head.next;
-        head.next = newNode;
-        newNode.prev = head;
-        newNode.next = temp;
-        temp.prev = newNode;
+        nodeMap = new HashMap(capacity);
+        cacheCapacity = capacity;
+        head.next = tail;
+        tail.prev = head;
+        
     }
     
     public int get(int key) {
-        if(!lru.containsKey(key)) return -1;
-
-        Node node = lru.get(key);
-        deleteNode(node);
-        addNode(node);
-        lru.put(key,head.next);
-        return head.next.val;
+        Node node = nodeMap.get(key);
+        if(node!=null){
+            remove(node);
+            add(node);
+            return node.val;
+        }
+        return -1;
     }
     
     public void put(int key, int value) {
-       if(lru.containsKey(key)){
-           Node node = lru.get(key);
-           deleteNode(node);
-           node.val = value;
-           addNode(node);
-           lru.put(key,head.next);
-       }else if(lru.size() == capacity){
-           Node prev = tail.prev;
-           deleteNode(prev);
-           lru.remove(prev.key);
-           Node newNode = new Node(key,value);
-           addNode(newNode);
-           lru.put(key,head.next);
+       Node node = nodeMap.get(key);
+       if(node!=null){
+        remove(node);
+        node.val = value;
+        add(node);
        } else{
-           Node newNode = new Node(key,value);
-           addNode(newNode);
-           lru.put(key,head.next);
+            if(nodeMap.size()==cacheCapacity){
+                nodeMap.remove(tail.prev.key);
+                remove(tail.prev);
+            }
+
+            Node newNode = new Node();
+            newNode.key = key;
+            newNode.val = value;
+            nodeMap.put(key,newNode);
+            add(newNode);
        }
+    }
+
+    public void add(Node node){
+        Node headNext = head.next;
+        node.next = headNext;
+        headNext.prev = node;
+        head.next = node;
+        node.prev = head;
+        
+    }
+
+    public void remove(Node node){
+        Node nodeNext = node.next;
+        Node nodePrev = node.prev;
+
+        nodeNext.prev = nodePrev;
+        nodePrev.next = nodeNext;
+    }
+
+    class Node{
+        int key;
+        int val;
+        Node prev;
+        Node next;
     }
 }
 
