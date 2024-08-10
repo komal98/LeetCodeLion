@@ -9,21 +9,18 @@ class Solution {
 
         //making a monotonic increasing stack
         for(int i = 0; i<arr.length; i++){
-
-            while(!stack.empty() && arr[stack.peek()] >= arr[i]){
+            while(!stack.isEmpty() && arr[stack.peek()]>=arr[i]){
                 stack.pop();
             }
-
-            if(stack.size()>0){
+            if(stack.size() > 0){
                 int prevSmall = stack.peek();
-                dp[i] = dp[prevSmall] + (i - prevSmall) *arr[i];
+                dp[i] = dp[prevSmall] + (i-prevSmall)*arr[i];
             }else{
                 dp[i] = (i+1)*arr[i];
             }
 
             stack.push(i);
         }
-
         long sumOfMinimums = 0;
         for(int count : dp){
             sumOfMinimums +=count;
