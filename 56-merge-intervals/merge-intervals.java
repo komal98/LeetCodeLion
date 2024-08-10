@@ -6,8 +6,7 @@ class Solution {
         for(int[] interval : intervals){
             if(merged.isEmpty() || merged.getLast()[1] < interval[0]){
                 merged.add(interval);
-            }
-            else{
+            }else{
                 merged.getLast()[1] = Math.max(merged.getLast()[1],interval[1]);
             }
         }
