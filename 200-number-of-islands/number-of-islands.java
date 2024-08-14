@@ -1,6 +1,6 @@
 class Solution {
     public int numIslands(char[][] grid) {
-        if(grid==null || grid.length == 0){
+        if(grid == null || grid.length == 0){
             return 0;
         }
 
@@ -8,11 +8,11 @@ class Solution {
         int c = grid[0].length;
         int numOfIslands = 0;
 
-        for(int i = 0; i<r; i++){
-            for(int j = 0; j<c; j++){
+        for(int i = 0; i < r; i++){
+            for(int j = 0; j < c; j++){
                 if(grid[i][j] == '1'){
-                        numOfIslands++;
-                        dfs(grid,i,j);
+                    numOfIslands++;
+                    dfs(grid,i,j);
                 }
             }
         }
@@ -20,11 +20,11 @@ class Solution {
         return numOfIslands;
     }
 
-    void dfs(char[][] grid,int r, int c){
+    void dfs(char[][] grid, int r, int c){
         int nr = grid.length;
         int nc = grid[0].length;
 
-        if(r<0 || c<0 || r>=nr || c>=nc || grid[r][c]=='0'){
+        if(r < 0 || r >=nr || c<0 || c>=nc || grid[r][c] == '0'){
             return;
         }
 
