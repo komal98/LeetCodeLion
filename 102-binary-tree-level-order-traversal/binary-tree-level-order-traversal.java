@@ -15,38 +15,32 @@
  */
 class Solution {
     public List<List<Integer>> levelOrder(TreeNode root) {
-      if(root == null) return new ArrayList<>();
+        List<List<Integer>> levels = new ArrayList<List<Integer>>();
+        if (root == null) return levels;
 
-      //initialize the ans
-      List<List<Integer>> ans = new ArrayList<>();
-      //BFS means Queue is needed
-      Queue<TreeNode> nodes = new LinkedList<>();
+        Queue<TreeNode> queue = new LinkedList<TreeNode>();
+        queue.add(root);
+        int level = 0;
+        while (!queue.isEmpty()) {
+            // start the current level
+            levels.add(new ArrayList<Integer>());
 
-      nodes.add(root);
-      nodes.add(null); //null signfies end of a particular level
+            // number of elements in the current level
+            int level_length = queue.size();
+            for (int i = 0; i < level_length; ++i) {
+                TreeNode node = queue.remove();
 
-      while(!nodes.isEmpty()){
-          int size = nodes.size();
-          List<Integer> list = new ArrayList<>();
+                // fulfill the current level
+                levels.get(level).add(node.val);
 
-          //traverse all elements at a particular level
-          for(int i = 0; i<size; i++){
-              TreeNode node = nodes.poll();
-              if(node == null) break;
-
-              if(node.left!=null){
-                  nodes.add(node.left);
-              }
-              if(node.right!=null){
-                  nodes.add(node.right);
-              }
-
-              list.add(node.val);
-          }
-          ans.add(list);
-          if(!nodes.isEmpty()) nodes.add(null);
-      }
-
-        return ans;
+                // add child nodes of the current level
+                // in the queue for the next level
+                if (node.left != null) queue.add(node.left);
+                if (node.right != null) queue.add(node.right);
+            }
+            // go to next level
+            level++;
+        }
+        return levels;
     }
 }
