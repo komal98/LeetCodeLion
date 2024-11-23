@@ -1,30 +1,25 @@
 class Solution {
     public int minAddToMakeValid(String s) {
-        Set<Integer> set = new HashSet<>();
-        Stack<Integer> stack = new Stack<>();
+        int openBrackets = 0;
+        int minAddsRequired = 0;
 
-        for(int i = 0; i < s.length(); i++){
-            if(s.charAt(i) == '('){
-                stack.push(i);
-            }if(s.charAt(i) == ')'){
-                if(stack.isEmpty()){
-                    set.add(i);
+        for(char c : s.toCharArray()){
+            if(c == '('){
+                openBrackets++;
+            }else{
+                if(openBrackets > 0){
+                    openBrackets--;
                 }else{
-                    stack.pop();
+                    minAddsRequired++;
                 }
             }
         }
 
-        while(!stack.isEmpty()){
-            set.add(stack.pop());
-        }
-
-        return set.size();
-        
+        return openBrackets + minAddsRequired;
     }
 }
 /*
-- need to identify unbalanced brackets
-- loop through, keep set to keep track of unbalanced bracket indexes
-- stack to check balance
+- keep two trackers
+- one to keep track of open brackets
+- one if open brackets are zero will keep track of minAddsRequired
 */
